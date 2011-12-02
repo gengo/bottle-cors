@@ -10,6 +10,7 @@ __version__ = "0.0.9"
 
 from bottle import request, response, Route
 
+
 def options_preflight_method( methods, allow_origin = '*', ttl = 300 ):
     """ Takes the methods/verbs from the 'original' endpoint and returns the
         endpoint function that serves the preflight OPTIONS request.
@@ -52,10 +53,10 @@ class RequestPreflightPlugin( object ):
 
     def __init__( self, allow_origin = '*',
                   preflight_methods = [ 'GET', 'POST', 'PUT', 'DELETE' ], ttl = 300 ):
-         self.allow_origin = allow_origin
-         self.preflight_methods = preflight_methods
-         self.ttl = ttl
-         self.method_registry = {}
+        self.allow_origin = allow_origin
+        self.preflight_methods = preflight_methods
+        self.ttl = ttl
+        self.method_registry = {}
 
     def setup( self, app ):
         """ Check that the plugin does not get installed twice."""
@@ -85,5 +86,4 @@ class RequestPreflightPlugin( object ):
                                                                     self.ttl ),
                            name = None, plugins = plugins, skiplist = [ skip_self ] )
             context.app.router.add( context.rule, 'OPTIONS', route, name = None )
-
         return callback
